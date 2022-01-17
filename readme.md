@@ -1,16 +1,21 @@
-# Digital home
-Home services platform (Arm7/64V)
+# Digital Home
+A platform with microservices that allows you to create a home dashboard.
+Including:
+- Webserver (nginx) + interface
+- Local database server with interface (PhpMyAdmin)
+- Control API (to send notifications and more)
+- Raspotify (To stream music to device via spotify app)
 
 
 ## Docker guide
-Depending on your hostmachine architecture use the following command.
-
+Depending on your host machine architecture use the following command.
+Navigate to the '/docker/compose' folder
 ```shell
-$ docker-compose up -f docker/compose/x64/arm.yml --p digital-home --build
+$ docker-compose up --build
 ```
 
-or for raspberry 3/3B+ 
+For raspberry 3/3B+ 
 
 ```shell
-$ docker-compose up -f docker/compose/docker-compose.yml --p digital-home --build
+$ docker-compose up arm.yml  --build
 ```
