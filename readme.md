@@ -1,7 +1,10 @@
 # Digital Home
 ** Still in development **
+
 A platform with microservices that allows you to create a home dashboard.
+
 Including:
+
 - Webserver (nginx) + interface
 - Local database server with interface (PhpMyAdmin)
 - Control API (to send notifications and more)
