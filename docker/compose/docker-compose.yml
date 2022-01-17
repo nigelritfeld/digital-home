@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # SQL Database server
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: my-secret-pw
+    volumes:
+      - ../data/mariadb:/var/lib/mariadb
+    #   Make sure no other processes are using this port
+    #    expose:
+    #      - 3306
+    ports:
+      - 3306
+
+  # Interface for mariadb
+  phpmyadmin:
+    depends_on:
+      - mariadb
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8003:80
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=my-secret-pw
+      - PMA_ARBITRARY=1
+  # Nginx webserver for interface
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ../../interface:/var/www/html
+      - ../config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php-fpm
+#    PHP fpm image
+  php-fpm:
+    # Used custom php image to install core extensions
+    build: ../images/mac/php8-fpm
+    restart: always
+    volumes:
+      - ../../interface:/var/www/html
+  api:
+    image: node:lts
+    ports:
+      - 8004:80
+    volumes:
+      - ../../api:/usr/src/app
+    working_dir: '/usr/src/app'
+    command: bash -c "npm install && npm run start"
+
+
