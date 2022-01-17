@@ -1,8 +1,8 @@
-#Digital home
+# Digital home
 Home services platform (Arm7/64V)
 
 
-##Docker guide
+## Docker guide
 Depending on your hostmachine architecture use the following command.
 
 ```shell
