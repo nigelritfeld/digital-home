@@ -19,3 +19,21 @@ For raspberry 3/3B+
 ```shell
 $ docker-compose up arm.yml  --build
 ```
+
+Now navigate to http://localhost/
+
+### Changing default webserver port
+** If you have another process running on port 80 (for example XAMPP) change the port in the used compose file. **
+
+```dockerfile
+nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+    # Change port "YOUR_PORT:80"
+      - "80:80" 
+```
+
+Yours sincerely,
+
+Nigel Ritfeld.
